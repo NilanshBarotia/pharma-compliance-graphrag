@@ -2,6 +2,9 @@
 
 Educational knowledge-graph project built on **public regulatory text** and **fictional synthetic records**. It contains no real manufacturing or operational instructions, and all "Northfield Pharma / Riverbend / Meridax" material is invented.
 
+Note: The project was created earlier than the creation of repo and so a lot more progresss since the first commit
+
+
 ## What's here
 | Path | Purpose |
 |---|---|
