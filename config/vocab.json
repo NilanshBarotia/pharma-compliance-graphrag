@@ -1,0 +1,27 @@
+{
+  "sop_department_by_prefix": {
+    "MNT": "Maintenance",
+    "QA": "Quality Assurance",
+    "QC": "Quality Control",
+    "PRD": "Production"
+  },
+  "equipment_tag_prefixes": [
+    "TP",
+    "HPLC",
+    "LC",
+    "BAL",
+    "GC",
+    "FBD"
+  ],
+  "equipment_type_words": {
+    "tablet press": "tablet press",
+    "balance": "balance",
+    "liquid chromatograph": "HPLC"
+  },
+  "equipment_type_by_tag_prefix": {
+    "TP": "tablet press",
+    "BAL": "balance",
+    "HPLC": "HPLC",
+    "LC": "HPLC"
+  }
+}

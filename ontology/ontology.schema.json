@@ -1,0 +1,1885 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/pharma-graphrag/ontology.schema.json",
+  "title": "Pharma manufacturing compliance knowledge graph (v0.1)",
+  "description": "Graph document: typed nodes + typed, direction-constrained edges. Educational project; fictional synthetic data is flagged synthetic=true.",
+  "type": "object",
+  "properties": {
+    "nodes": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/node_Product"
+          },
+          {
+            "$ref": "#/$defs/node_Batch"
+          },
+          {
+            "$ref": "#/$defs/node_Equipment"
+          },
+          {
+            "$ref": "#/$defs/node_SOP"
+          },
+          {
+            "$ref": "#/$defs/node_Deviation"
+          },
+          {
+            "$ref": "#/$defs/node_CAPA"
+          },
+          {
+            "$ref": "#/$defs/node_RegulationClause"
+          },
+          {
+            "$ref": "#/$defs/node_Site"
+          },
+          {
+            "$ref": "#/$defs/node_Inspector"
+          }
+        ]
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/edge_OF_PRODUCT"
+          },
+          {
+            "$ref": "#/$defs/edge_MANUFACTURED_AT"
+          },
+          {
+            "$ref": "#/$defs/edge_PROCESSED_ON"
+          },
+          {
+            "$ref": "#/$defs/edge_GOVERNED_BY"
+          },
+          {
+            "$ref": "#/$defs/edge_LOCATED_AT"
+          },
+          {
+            "$ref": "#/$defs/edge_COVERED_BY"
+          },
+          {
+            "$ref": "#/$defs/edge_IMPLEMENTS"
+          },
+          {
+            "$ref": "#/$defs/edge_OBSERVED_IN"
+          },
+          {
+            "$ref": "#/$defs/edge_INVOLVES_EQUIPMENT"
+          },
+          {
+            "$ref": "#/$defs/edge_VIOLATES_SOP"
+          },
+          {
+            "$ref": "#/$defs/edge_OCCURRED_AT"
+          },
+          {
+            "$ref": "#/$defs/edge_RELATES_TO_CLAUSE"
+          },
+          {
+            "$ref": "#/$defs/edge_RAISED"
+          },
+          {
+            "$ref": "#/$defs/edge_ADDRESSES"
+          },
+          {
+            "$ref": "#/$defs/edge_REVISES_SOP"
+          },
+          {
+            "$ref": "#/$defs/edge_REFERENCES_CLAUSE"
+          },
+          {
+            "$ref": "#/$defs/edge_INSPECTED"
+          },
+          {
+            "$ref": "#/$defs/edge_CITED"
+          },
+          {
+            "$ref": "#/$defs/edge_CHILD_OF"
+          }
+        ]
+      }
+    }
+  },
+  "required": [
+    "nodes",
+    "edges"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Provenance. Every node/edge must point at >=1 source document (drives citation grounding).",
+      "items": {
+        "type": "object",
+        "properties": {
+          "doc_id": {
+            "type": "string",
+            "pattern": "^(SRC|SYN)-[A-Za-z0-9._-]+$"
+          },
+          "locator": {
+            "type": "string",
+            "description": "Section, clause, page or paragraph inside the doc."
+          }
+        },
+        "required": [
+          "doc_id"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "node_Product": {
+      "title": "Product",
+      "type": "object",
+      "properties": {
+        "label": {
+          "const": "Product"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^PRD-[A-Za-z0-9._()\\-]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Canonical display name (entity resolution target)."
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true,
+          "description": "Other strings the corpus uses for this entity."
+        },
+        "synthetic": {
+          "type": "boolean",
+          "description": "True for fictional data created for this project."
+        },
+        "sources": {
+          "$ref": "#/$defs/sources"
+        },
+        "dosage_form": {
+          "type": "string",
+          "enum": [
+            "tablet",
+            "capsule",
+            "oral_liquid",
+            "injectable",
+            "topical",
+            "other"
+          ]
+        },
+        "strength": {
+          "type": "string"
+        },
+        "active_ingredient": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "label",
+        "id",
+        "name",
+        "sources"
+      ],
+      "additionalProperties": false
+    },
+    "node_Batch": {
+      "title": "Batch",
+      "type": "object",
+      "properties": {
+        "label": {
+          "const": "Batch"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^BAT-[A-Za-z0-9._()\\-]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Canonical display name (entity resolution target)."
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true,
+          "description": "Other strings the corpus uses for this entity."
+        },
+        "synthetic": {
+          "type": "boolean",
+          "description": "True for fictional data created for this project."
+        },
+        "sources": {
+          "$ref": "#/$defs/sources"
+        },
+        "batch_number": {
+          "type": "string"
+        },
+        "manufacture_date": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "expiry_date": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "in_process",
+            "quarantined",
+            "on_hold",
+            "released",
+            "rejected"
+          ]
+        },
+        "batch_size": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "number"
+            },
+            "unit": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "value",
+            "unit"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "label",
+        "id",
+        "name",
+        "sources",
+        "batch_number"
+      ],
+      "additionalProperties": false
+    },
+    "node_Equipment": {
+      "title": "Equipment",
+      "type": "object",
+      "properties": {
+        "label": {
+          "const": "Equipment"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^EQP-[A-Za-z0-9._()\\-]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Canonical display name (entity resolution target)."
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true,
+          "description": "Other strings the corpus uses for this entity."
+        },
+        "synthetic": {
+          "type": "boolean",
+          "description": "True for fictional data created for this project."
+        },
+        "sources": {
+          "$ref": "#/$defs/sources"
+        },
+        "equipment_tag": {
+          "type": "string"
+        },
+        "equipment_type": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "qualified",
+            "calibration_overdue",
+            "under_maintenance",
+            "out_of_service",
+            "retired"
+          ]
+        },
+        "last_calibration_date": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "next_calibration_due": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        }
+      },
+      "required": [
+        "label",
+        "id",
+        "name",
+        "sources",
+        "equipment_tag"
+      ],
+      "additionalProperties": false
+    },
+    "node_SOP": {
+      "title": "SOP",
+      "type": "object",
+      "properties": {
+        "label": {
+          "const": "SOP"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^SOP-[A-Za-z0-9._()\\-]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Canonical display name (entity resolution target)."
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true,
+          "description": "Other strings the corpus uses for this entity."
+        },
+        "synthetic": {
+          "type": "boolean",
+          "description": "True for fictional data created for this project."
+        },
+        "sources": {
+          "$ref": "#/$defs/sources"
+        },
+        "sop_number": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "effective_date": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "department": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "label",
+        "id",
+        "name",
+        "sources",
+        "sop_number",
+        "title"
+      ],
+      "additionalProperties": false
+    },
+    "node_Deviation": {
+      "title": "Deviation",
+      "type": "object",
+      "properties": {
+        "label": {
+          "const": "Deviation"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^DEV-[A-Za-z0-9._()\\-]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Canonical display name (entity resolution target)."
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true,
+          "description": "Other strings the corpus uses for this entity."
+        },
+        "synthetic": {
+          "type": "boolean",
+          "description": "True for fictional data created for this project."
+        },
+        "sources": {
+          "$ref": "#/$defs/sources"
+        },
+        "deviation_number": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "equipment",
+            "process",
+            "laboratory",
+            "documentation",
+            "computerised_system",
+            "material",
+            "facility",
+            "other"
+          ]
+        },
+        "severity": {
+          "type": "string",
+          "enum": [
+            "critical",
+            "major",
+            "minor"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "open",
+            "under_investigation",
+            "closed"
+          ]
+        },
+        "date_opened": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "date_closed": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "root_cause": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "label",
+        "id",
+        "name",
+        "sources",
+        "deviation_number",
+        "title"
+      ],
+      "additionalProperties": false
+    },
+    "node_CAPA": {
+      "title": "CAPA",
+      "type": "object",
+      "properties": {
+        "label": {
+          "const": "CAPA"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^CAP-[A-Za-z0-9._()\\-]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Canonical display name (entity resolution target)."
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true,
+          "description": "Other strings the corpus uses for this entity."
+        },
+        "synthetic": {
+          "type": "boolean",
+          "description": "True for fictional data created for this project."
+        },
+        "sources": {
+          "$ref": "#/$defs/sources"
+        },
+        "capa_number": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "capa_type": {
+          "type": "string",
+          "enum": [
+            "corrective",
+            "preventive",
+            "corrective_and_preventive"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "open",
+            "in_progress",
+            "closed"
+          ]
+        },
+        "date_opened": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "due_date": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "effectiveness_check": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "effective",
+            "ineffective",
+            "not_required"
+          ]
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "label",
+        "id",
+        "name",
+        "sources",
+        "capa_number",
+        "title"
+      ],
+      "additionalProperties": false
+    },
+    "node_RegulationClause": {
+      "title": "RegulationClause",
+      "type": "object",
+      "properties": {
+        "label": {
+          "const": "RegulationClause"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^REG-[A-Za-z0-9._()\\-]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Canonical display name (entity resolution target)."
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true,
+          "description": "Other strings the corpus uses for this entity."
+        },
+        "synthetic": {
+          "type": "boolean",
+          "description": "True for fictional data created for this project."
+        },
+        "sources": {
+          "$ref": "#/$defs/sources"
+        },
+        "framework": {
+          "type": "string",
+          "enum": [
+            "21_CFR_211",
+            "21_CFR_210",
+            "EU_GMP_ANNEX_11",
+            "EU_GMP_ANNEX_15",
+            "EU_GMP_OTHER",
+            "OTHER"
+          ]
+        },
+        "citation": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "jurisdiction": {
+          "type": "string",
+          "enum": [
+            "US",
+            "EU"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "verification_status": {
+          "type": "string",
+          "enum": [
+            "verified_against_source",
+            "unverified"
+          ]
+        }
+      },
+      "required": [
+        "label",
+        "id",
+        "name",
+        "sources",
+        "framework",
+        "citation"
+      ],
+      "additionalProperties": false
+    },
+    "node_Site": {
+      "title": "Site",
+      "type": "object",
+      "properties": {
+        "label": {
+          "const": "Site"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^SIT-[A-Za-z0-9._()\\-]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Canonical display name (entity resolution target)."
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true,
+          "description": "Other strings the corpus uses for this entity."
+        },
+        "synthetic": {
+          "type": "boolean",
+          "description": "True for fictional data created for this project."
+        },
+        "sources": {
+          "$ref": "#/$defs/sources"
+        },
+        "site_type": {
+          "type": "string",
+          "enum": [
+            "manufacturing",
+            "testing_lab",
+            "packaging",
+            "warehouse",
+            "other"
+          ]
+        },
+        "city": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "fei_number": {
+          "type": "string",
+          "pattern": "^\\d{7,10}$"
+        }
+      },
+      "required": [
+        "label",
+        "id",
+        "name",
+        "sources"
+      ],
+      "additionalProperties": false
+    },
+    "node_Inspector": {
+      "title": "Inspector",
+      "type": "object",
+      "properties": {
+        "label": {
+          "const": "Inspector"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^INS-[A-Za-z0-9._()\\-]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Canonical display name (entity resolution target)."
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true,
+          "description": "Other strings the corpus uses for this entity."
+        },
+        "synthetic": {
+          "type": "boolean",
+          "description": "True for fictional data created for this project."
+        },
+        "sources": {
+          "$ref": "#/$defs/sources"
+        },
+        "inspector_type": {
+          "type": "string",
+          "enum": [
+            "regulator",
+            "internal_auditor",
+            "third_party_auditor"
+          ]
+        },
+        "organization": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "label",
+        "id",
+        "name",
+        "sources"
+      ],
+      "additionalProperties": false
+    },
+    "edge_OF_PRODUCT": {
+      "title": "Batch-[OF_PRODUCT]->Product",
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "OF_PRODUCT"
+        },
+        "from": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "Batch"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^BAT-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "to": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "Product"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^PRD-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "properties": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        },
+        "sources": {
+          "$ref": "#/$defs/sources"
+        }
+      },
+      "required": [
+        "type",
+        "from",
+        "to",
+        "sources"
+      ],
+      "additionalProperties": false
+    },
+    "edge_MANUFACTURED_AT": {
+      "title": "Batch-[MANUFACTURED_AT]->Site",
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "MANUFACTURED_AT"
+        },
+        "from": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "Batch"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^BAT-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "to": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "Site"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^SIT-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "properties": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        },
+        "sources": {
+          "$ref": "#/$defs/sources"
+        }
+      },
+      "required": [
+        "type",
+        "from",
+        "to",
+        "sources"
+      ],
+      "additionalProperties": false
+    },
+    "edge_PROCESSED_ON": {
+      "title": "Batch-[PROCESSED_ON]->Equipment",
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "PROCESSED_ON"
+        },
+        "from": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "Batch"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^BAT-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "to": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "Equipment"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^EQP-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "properties": {
+          "type": "object",
+          "properties": {
+            "step": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "sources": {
+          "$ref": "#/$defs/sources"
+        }
+      },
+      "required": [
+        "type",
+        "from",
+        "to",
+        "sources"
+      ],
+      "additionalProperties": false
+    },
+    "edge_GOVERNED_BY": {
+      "title": "Batch-[GOVERNED_BY]->SOP",
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "GOVERNED_BY"
+        },
+        "from": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "Batch"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^BAT-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "to": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "SOP"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^SOP-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "properties": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        },
+        "sources": {
+          "$ref": "#/$defs/sources"
+        }
+      },
+      "required": [
+        "type",
+        "from",
+        "to",
+        "sources"
+      ],
+      "additionalProperties": false
+    },
+    "edge_LOCATED_AT": {
+      "title": "Equipment-[LOCATED_AT]->Site",
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "LOCATED_AT"
+        },
+        "from": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "Equipment"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^EQP-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "to": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "Site"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^SIT-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "properties": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        },
+        "sources": {
+          "$ref": "#/$defs/sources"
+        }
+      },
+      "required": [
+        "type",
+        "from",
+        "to",
+        "sources"
+      ],
+      "additionalProperties": false
+    },
+    "edge_COVERED_BY": {
+      "title": "Equipment-[COVERED_BY]->SOP",
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "COVERED_BY"
+        },
+        "from": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "Equipment"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^EQP-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "to": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "SOP"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^SOP-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "properties": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        },
+        "sources": {
+          "$ref": "#/$defs/sources"
+        }
+      },
+      "required": [
+        "type",
+        "from",
+        "to",
+        "sources"
+      ],
+      "additionalProperties": false
+    },
+    "edge_IMPLEMENTS": {
+      "title": "SOP-[IMPLEMENTS]->RegulationClause",
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "IMPLEMENTS"
+        },
+        "from": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "SOP"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^SOP-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "to": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "RegulationClause"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^REG-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "properties": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        },
+        "sources": {
+          "$ref": "#/$defs/sources"
+        }
+      },
+      "required": [
+        "type",
+        "from",
+        "to",
+        "sources"
+      ],
+      "additionalProperties": false
+    },
+    "edge_OBSERVED_IN": {
+      "title": "Deviation-[OBSERVED_IN]->Batch",
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "OBSERVED_IN"
+        },
+        "from": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "Deviation"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^DEV-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "to": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "Batch"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^BAT-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "properties": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        },
+        "sources": {
+          "$ref": "#/$defs/sources"
+        }
+      },
+      "required": [
+        "type",
+        "from",
+        "to",
+        "sources"
+      ],
+      "additionalProperties": false
+    },
+    "edge_INVOLVES_EQUIPMENT": {
+      "title": "Deviation-[INVOLVES_EQUIPMENT]->Equipment",
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "INVOLVES_EQUIPMENT"
+        },
+        "from": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "Deviation"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^DEV-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "to": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "Equipment"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^EQP-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "properties": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        },
+        "sources": {
+          "$ref": "#/$defs/sources"
+        }
+      },
+      "required": [
+        "type",
+        "from",
+        "to",
+        "sources"
+      ],
+      "additionalProperties": false
+    },
+    "edge_VIOLATES_SOP": {
+      "title": "Deviation-[VIOLATES_SOP]->SOP",
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "VIOLATES_SOP"
+        },
+        "from": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "Deviation"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^DEV-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "to": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "SOP"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^SOP-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "properties": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        },
+        "sources": {
+          "$ref": "#/$defs/sources"
+        }
+      },
+      "required": [
+        "type",
+        "from",
+        "to",
+        "sources"
+      ],
+      "additionalProperties": false
+    },
+    "edge_OCCURRED_AT": {
+      "title": "Deviation-[OCCURRED_AT]->Site",
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "OCCURRED_AT"
+        },
+        "from": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "Deviation"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^DEV-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "to": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "Site"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^SIT-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "properties": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        },
+        "sources": {
+          "$ref": "#/$defs/sources"
+        }
+      },
+      "required": [
+        "type",
+        "from",
+        "to",
+        "sources"
+      ],
+      "additionalProperties": false
+    },
+    "edge_RELATES_TO_CLAUSE": {
+      "title": "Deviation-[RELATES_TO_CLAUSE]->RegulationClause",
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "RELATES_TO_CLAUSE"
+        },
+        "from": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "Deviation"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^DEV-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "to": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "RegulationClause"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^REG-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "properties": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        },
+        "sources": {
+          "$ref": "#/$defs/sources"
+        }
+      },
+      "required": [
+        "type",
+        "from",
+        "to",
+        "sources"
+      ],
+      "additionalProperties": false
+    },
+    "edge_RAISED": {
+      "title": "Inspector-[RAISED]->Deviation",
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "RAISED"
+        },
+        "from": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "Inspector"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^INS-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "to": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "Deviation"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^DEV-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "properties": {
+          "type": "object",
+          "properties": {
+            "date": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+            }
+          },
+          "additionalProperties": false
+        },
+        "sources": {
+          "$ref": "#/$defs/sources"
+        }
+      },
+      "required": [
+        "type",
+        "from",
+        "to",
+        "sources"
+      ],
+      "additionalProperties": false
+    },
+    "edge_ADDRESSES": {
+      "title": "CAPA-[ADDRESSES]->Deviation",
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "ADDRESSES"
+        },
+        "from": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "CAPA"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^CAP-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "to": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "Deviation"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^DEV-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "properties": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        },
+        "sources": {
+          "$ref": "#/$defs/sources"
+        }
+      },
+      "required": [
+        "type",
+        "from",
+        "to",
+        "sources"
+      ],
+      "additionalProperties": false
+    },
+    "edge_REVISES_SOP": {
+      "title": "CAPA-[REVISES_SOP]->SOP",
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "REVISES_SOP"
+        },
+        "from": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "CAPA"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^CAP-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "to": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "SOP"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^SOP-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "properties": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        },
+        "sources": {
+          "$ref": "#/$defs/sources"
+        }
+      },
+      "required": [
+        "type",
+        "from",
+        "to",
+        "sources"
+      ],
+      "additionalProperties": false
+    },
+    "edge_REFERENCES_CLAUSE": {
+      "title": "CAPA-[REFERENCES_CLAUSE]->RegulationClause",
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "REFERENCES_CLAUSE"
+        },
+        "from": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "CAPA"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^CAP-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "to": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "RegulationClause"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^REG-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "properties": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        },
+        "sources": {
+          "$ref": "#/$defs/sources"
+        }
+      },
+      "required": [
+        "type",
+        "from",
+        "to",
+        "sources"
+      ],
+      "additionalProperties": false
+    },
+    "edge_INSPECTED": {
+      "title": "Inspector-[INSPECTED]->Site",
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "INSPECTED"
+        },
+        "from": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "Inspector"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^INS-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "to": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "Site"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^SIT-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "properties": {
+          "type": "object",
+          "properties": {
+            "start_date": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+            },
+            "end_date": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+            }
+          },
+          "additionalProperties": false
+        },
+        "sources": {
+          "$ref": "#/$defs/sources"
+        }
+      },
+      "required": [
+        "type",
+        "from",
+        "to",
+        "sources"
+      ],
+      "additionalProperties": false
+    },
+    "edge_CITED": {
+      "title": "Inspector-[CITED]->RegulationClause",
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "CITED"
+        },
+        "from": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "Inspector"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^INS-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "to": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "RegulationClause"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^REG-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "properties": {
+          "type": "object",
+          "properties": {
+            "site_id": {
+              "type": "string",
+              "pattern": "^SIT-[A-Za-z0-9._-]+$"
+            },
+            "document_id": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "sources": {
+          "$ref": "#/$defs/sources"
+        }
+      },
+      "required": [
+        "type",
+        "from",
+        "to",
+        "sources"
+      ],
+      "additionalProperties": false
+    },
+    "edge_CHILD_OF": {
+      "title": "RegulationClause-[CHILD_OF]->RegulationClause",
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "CHILD_OF"
+        },
+        "from": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "RegulationClause"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^REG-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "to": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "const": "RegulationClause"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^REG-[A-Za-z0-9._()\\-]+$"
+            }
+          },
+          "required": [
+            "label",
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "properties": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        },
+        "sources": {
+          "$ref": "#/$defs/sources"
+        }
+      },
+      "required": [
+        "type",
+        "from",
+        "to",
+        "sources"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

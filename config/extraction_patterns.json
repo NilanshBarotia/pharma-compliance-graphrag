@@ -1,0 +1,215 @@
+{
+  "_readme": "Generic extraction config. To point this pipeline at a NEW document set: (1) add framework/section titles to clause_catalog.json, (2) add id prefixes/vocab to vocab.json, (3) edit ONLY the regex/keyword lists below to match your documents' wording. extract.py contains no domain-specific strings itself.",
+  "front_matter_doc_id_field": "doc_id",
+  "entity_patterns": [
+    {
+      "label": "SOP",
+      "id_prefix": "SOP",
+      "regex": "\\bSOP-([A-Z]{2,4}-\\d{2,4})\\b",
+      "id_from": "SOP-{0}",
+      "name_from": "SOP-{0}",
+      "capture_title_regex": "SOP-[A-Z]{{2,4}}-\\d{{2,4}}[,\\s]+\\*([^*]+)\\*"
+    },
+    {
+      "label": "Deviation",
+      "id_prefix": "DEV",
+      "regex": "\\bDEV-(\\d{4}-\\d{2,4})\\b",
+      "id_from": "DEV-{0}",
+      "name_from": "DEV-{0}"
+    },
+    {
+      "label": "CAPA",
+      "id_prefix": "CAP",
+      "regex": "\\bCAPA-(\\d{4}-\\d{2,4})\\b",
+      "id_from": "CAP-{0}",
+      "name_from": "CAPA-{0}"
+    },
+    {
+      "label": "Batch",
+      "id_prefix": "BAT",
+      "regex": "\\b(?:Lot|Batch)\\s+([A-Z0-9]{2,4}\\d{2}-\\d{2,4})\\b",
+      "id_from": "BAT-{0}",
+      "name_from": "Lot {0}"
+    },
+    {
+      "label": "Equipment",
+      "id_prefix": "EQP",
+      "regex": "\\b(TP|HPLC|LC|BAL|GC|FBD)-?(\\d{1,3})\\b",
+      "id_from": "EQP-{0}-{1}",
+      "name_from": "{0}-{1}"
+    },
+    {
+      "label": "RegulationClause",
+      "id_prefix": "REG",
+      "regex": "\\b21 CFR (\\d{3}\\.\\d{1,4}(?:\\([a-z0-9]+\\))*)\\b",
+      "id_from": "REG-21CFR-{0}",
+      "name_from": "21 CFR {0}",
+      "framework": "21_CFR_211"
+    },
+    {
+      "label": "RegulationClause",
+      "id_prefix": "REG",
+      "regex": "\\bEU GMP Annex (\\d{1,2}),?\\s*clause\\s*(\\d{1,2})\\b",
+      "id_from": "REG-EUANNEX{0}-{1}",
+      "name_from": "EU GMP Annex {0}, clause {1}",
+      "framework": "EU_GMP_ANNEX_{0}"
+    }
+  ],
+  "alias_patterns": [
+    {
+      "label": "Equipment",
+      "regex": "\\bPress #(\\d+)\\b",
+      "canonical_id_from": "EQP-TP-0{0}"
+    },
+    {
+      "label": "Equipment",
+      "regex": "\\bTablet Press (\\d+)\\b",
+      "canonical_id_from": "EQP-TP-0{0}"
+    },
+    {
+      "label": "Equipment",
+      "regex": "\\bCompression Line \\d+ press\\b",
+      "canonical_id_from": "EQP-TP-03"
+    },
+    {
+      "label": "Equipment",
+      "regex": "\\bLiquid Chromatograph (\\d+)\\b",
+      "canonical_id_from": "EQP-HPLC-0{0}"
+    },
+    {
+      "label": "Equipment",
+      "regex": "\\bLC-0?(\\d+)\\b",
+      "canonical_id_from": "EQP-HPLC-0{0}"
+    }
+  ],
+  "relation_triggers": [
+    {
+      "type": "GOVERNED_BY",
+      "from_label": "Batch",
+      "to_label": "SOP",
+      "keywords": [
+        "governing procedure",
+        "governed by"
+      ]
+    },
+    {
+      "type": "COVERED_BY",
+      "from_label": "Equipment",
+      "to_label": "SOP",
+      "keywords": [
+        "is governed by",
+        "covered by"
+      ]
+    },
+    {
+      "type": "IMPLEMENTS",
+      "from_label": "SOP",
+      "to_label": "RegulationClause",
+      "keywords": [
+        "implements"
+      ]
+    },
+    {
+      "type": "OBSERVED_IN",
+      "from_label": "Deviation",
+      "to_label": "Batch",
+      "keywords": [
+        "batch affected",
+        "lot"
+      ]
+    },
+    {
+      "type": "INVOLVES_EQUIPMENT",
+      "from_label": "Deviation",
+      "to_label": "Equipment",
+      "keywords": [
+        "on tp",
+        "on hplc",
+        "sensor on",
+        "results generated on"
+      ]
+    },
+    {
+      "type": "VIOLATES_SOP",
+      "from_label": "Deviation",
+      "to_label": "SOP",
+      "keywords": [
+        "requires",
+        "procedure followed",
+        "sop-"
+      ]
+    },
+    {
+      "type": "RELATES_TO_CLAUSE",
+      "from_label": "Deviation",
+      "to_label": "RegulationClause",
+      "keywords": [
+        "regulatory relevance"
+      ]
+    },
+    {
+      "type": "RELATES_TO_CLAUSE",
+      "from_label": "CAPA",
+      "to_label": "RegulationClause",
+      "keywords": [
+        "regulatory reference"
+      ]
+    },
+    {
+      "type": "REFERENCES_CLAUSE",
+      "from_label": "CAPA",
+      "to_label": "RegulationClause",
+      "keywords": [
+        "regulatory reference"
+      ]
+    },
+    {
+      "type": "ADDRESSES",
+      "from_label": "CAPA",
+      "to_label": "Deviation",
+      "keywords": [
+        "addresses"
+      ]
+    },
+    {
+      "type": "REVISES_SOP",
+      "from_label": "CAPA",
+      "to_label": "SOP",
+      "keywords": [
+        "revise sop",
+        "revise",
+        "harmonise",
+        "sop-"
+      ]
+    }
+  ],
+  "section_relation_hint": {
+    "_readme": "For each markdown '## Heading', a relation type to prefer when that heading co-occurs entities of the right labels.",
+    "regulatory relevance": [
+      "RELATES_TO_CLAUSE"
+    ],
+    "regulatory reference": [
+      "REFERENCES_CLAUSE",
+      "RELATES_TO_CLAUSE"
+    ],
+    "linked records": [
+      "ADDRESSES"
+    ]
+  },
+  "resolution": {
+    "fuzzy_threshold": 0.88,
+    "block_by": "label",
+    "normalize": [
+      "lower",
+      "strip_punct",
+      "collapse_space"
+    ],
+    "fuzzy_labels": [
+      "Equipment",
+      "Site",
+      "Product",
+      "Inspector"
+    ],
+    "_readme_fuzzy_labels": "Fuzzy (typo-tolerant) matching only applies to these free-text-named labels. Labels with structured numeric IDs (Deviation, CAPA, SOP, RegulationClause, Batch) rely on exact/alias matching only, since e.g. 'CAPA-2026-019' and 'CAPA-2026-011' are lexically close but must never merge."
+  }
+}

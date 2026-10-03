@@ -1,0 +1,544 @@
+{
+  "nodes": [
+    {
+      "label": "Batch",
+      "id": "BAT-MX26-014",
+      "name": "Lot MX26-014",
+      "synthetic": true,
+      "sources": [
+        {
+          "doc_id": "SYN-BR-001",
+          "locator": "section:executed batch record summary \u00e2\u20ac\u201d lot mx26-014"
+        },
+        {
+          "doc_id": "SYN-DEV-001",
+          "locator": "section:deviation report dev-2026-031"
+        }
+      ],
+      "batch_number": "MX26-014"
+    },
+    {
+      "label": "SOP",
+      "id": "SOP-PRD-102",
+      "name": "SOP-PRD-102",
+      "synthetic": true,
+      "sources": [
+        {
+          "doc_id": "SYN-BR-001",
+          "locator": "section:executed batch record summary \u00e2\u20ac\u201d lot mx26-014"
+        }
+      ],
+      "title": "SOP-PRD-102",
+      "department": "Production",
+      "sop_number": "SOP-PRD-102"
+    },
+    {
+      "label": "SOP",
+      "id": "SOP-MNT-014",
+      "name": "SOP-MNT-014",
+      "synthetic": true,
+      "sources": [
+        {
+          "doc_id": "SYN-CAPA-001",
+          "locator": "section:actions"
+        },
+        {
+          "doc_id": "SYN-DEV-001",
+          "locator": "section:investigation"
+        },
+        {
+          "doc_id": "SYN-DEV-001",
+          "locator": "section:regulatory relevance"
+        }
+      ],
+      "title": "SOP-MNT-014",
+      "department": "Maintenance",
+      "sop_number": "SOP-MNT-014"
+    },
+    {
+      "label": "SOP",
+      "id": "SOP-QC-033",
+      "name": "SOP-QC-033",
+      "synthetic": true,
+      "sources": [
+        {
+          "doc_id": "SYN-CAPA-002",
+          "locator": "section:actions"
+        },
+        {
+          "doc_id": "SYN-DEV-002",
+          "locator": "section:description"
+        },
+        {
+          "doc_id": "SYN-DEV-002",
+          "locator": "section:regulatory relevance"
+        }
+      ],
+      "title": "SOP-QC-033",
+      "department": "Quality Control",
+      "sop_number": "SOP-QC-033"
+    },
+    {
+      "label": "SOP",
+      "id": "SOP-QA-021",
+      "name": "SOP-QA-021",
+      "synthetic": true,
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-001",
+          "locator": "section:investigation"
+        },
+        {
+          "doc_id": "SYN-DEV-001",
+          "locator": "section:regulatory relevance"
+        }
+      ],
+      "title": "Calibration of Production Equipment",
+      "department": "Quality Assurance",
+      "sop_number": "SOP-QA-021"
+    },
+    {
+      "label": "Equipment",
+      "id": "EQP-TP-03",
+      "name": "TP-03",
+      "aliases": [
+        "Compression Line 3 press",
+        "Press #3",
+        "Tablet Press 3"
+      ],
+      "synthetic": true,
+      "sources": [
+        {
+          "doc_id": "SYN-BR-001",
+          "locator": "section:equipment used"
+        },
+        {
+          "doc_id": "SYN-CAPA-001",
+          "locator": "section:capa-2026-011"
+        },
+        {
+          "doc_id": "SYN-CAPA-001",
+          "locator": "section:actions"
+        },
+        {
+          "doc_id": "SYN-DEV-001",
+          "locator": "section:deviation report dev-2026-031"
+        },
+        {
+          "doc_id": "SYN-DEV-001",
+          "locator": "section:description"
+        }
+      ],
+      "equipment_tag": "EQP-TP-03"
+    },
+    {
+      "label": "Equipment",
+      "id": "EQP-BAL-11",
+      "name": "BAL-11",
+      "synthetic": true,
+      "sources": [
+        {
+          "doc_id": "SYN-BR-001",
+          "locator": "section:equipment used"
+        }
+      ],
+      "equipment_tag": "EQP-BAL-11"
+    },
+    {
+      "label": "Equipment",
+      "id": "EQP-HPLC-02",
+      "name": "HPLC-02",
+      "synthetic": true,
+      "sources": [
+        {
+          "doc_id": "SYN-CAPA-002",
+          "locator": "section:capa-2026-019"
+        },
+        {
+          "doc_id": "SYN-DEV-002",
+          "locator": "section:description"
+        }
+      ],
+      "equipment_tag": "EQP-HPLC-02",
+      "aliases": [
+        "LC-02",
+        "Liquid Chromatograph 2"
+      ]
+    },
+    {
+      "label": "Deviation",
+      "id": "DEV-2026-031",
+      "name": "DEV-2026-031",
+      "synthetic": true,
+      "sources": [
+        {
+          "doc_id": "SYN-BR-001",
+          "locator": "section:review notes"
+        },
+        {
+          "doc_id": "SYN-CAPA-001",
+          "locator": "section:capa-2026-011"
+        },
+        {
+          "doc_id": "SYN-DEV-001",
+          "locator": "section:deviation report dev-2026-031"
+        }
+      ],
+      "title": "DEV-2026-031",
+      "deviation_number": "DEV-2026-031"
+    },
+    {
+      "label": "Deviation",
+      "id": "DEV-2026-047",
+      "name": "DEV-2026-047",
+      "synthetic": true,
+      "sources": [
+        {
+          "doc_id": "SYN-BR-001",
+          "locator": "section:review notes"
+        },
+        {
+          "doc_id": "SYN-CAPA-002",
+          "locator": "section:capa-2026-019"
+        },
+        {
+          "doc_id": "SYN-DEV-002",
+          "locator": "section:deviation report dev-2026-047"
+        }
+      ],
+      "title": "DEV-2026-047",
+      "deviation_number": "DEV-2026-047"
+    },
+    {
+      "label": "CAPA",
+      "id": "CAP-2026-011",
+      "name": "CAPA-2026-011",
+      "synthetic": true,
+      "sources": [
+        {
+          "doc_id": "SYN-CAPA-001",
+          "locator": "section:capa-2026-011"
+        },
+        {
+          "doc_id": "SYN-DEV-001",
+          "locator": "section:linked records"
+        }
+      ],
+      "title": "CAPA-2026-011",
+      "capa_number": "CAPA-2026-011"
+    },
+    {
+      "label": "CAPA",
+      "id": "CAP-2026-019",
+      "name": "CAPA-2026-019",
+      "synthetic": true,
+      "sources": [
+        {
+          "doc_id": "SYN-CAPA-002",
+          "locator": "section:capa-2026-019"
+        },
+        {
+          "doc_id": "SYN-DEV-002",
+          "locator": "section:linked records"
+        }
+      ],
+      "title": "CAPA-2026-019",
+      "capa_number": "CAPA-2026-019"
+    },
+    {
+      "label": "RegulationClause",
+      "id": "REG-21CFR-211.68",
+      "name": "21 CFR 211.68",
+      "synthetic": true,
+      "sources": [
+        {
+          "doc_id": "SYN-CAPA-001",
+          "locator": "section:regulatory reference"
+        },
+        {
+          "doc_id": "SYN-DEV-001",
+          "locator": "section:regulatory relevance"
+        }
+      ],
+      "framework": "21_CFR_211",
+      "citation": "21 CFR 211.68",
+      "title": "",
+      "jurisdiction": "US",
+      "verification_status": "verified_against_source"
+    },
+    {
+      "label": "RegulationClause",
+      "id": "REG-21CFR-211.100",
+      "name": "21 CFR 211.100",
+      "synthetic": true,
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-001",
+          "locator": "section:regulatory relevance"
+        }
+      ],
+      "framework": "21_CFR_211",
+      "citation": "21 CFR 211.100",
+      "title": "",
+      "jurisdiction": "US",
+      "verification_status": "verified_against_source"
+    },
+    {
+      "label": "RegulationClause",
+      "id": "REG-EUANNEX11-9",
+      "name": "EU GMP Annex 11, clause 9",
+      "synthetic": true,
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-002",
+          "locator": "section:regulatory relevance"
+        }
+      ],
+      "framework": "EU_GMP_ANNEX_11",
+      "citation": "EU GMP Annex 11, clause 9",
+      "title": "",
+      "jurisdiction": "EU",
+      "verification_status": "verified_against_source"
+    },
+    {
+      "label": "RegulationClause",
+      "id": "REG-21CFR-211.160",
+      "name": "21 CFR 211.160",
+      "synthetic": true,
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-002",
+          "locator": "section:regulatory relevance"
+        }
+      ],
+      "framework": "21_CFR_211",
+      "citation": "21 CFR 211.160",
+      "title": "",
+      "jurisdiction": "US",
+      "verification_status": "verified_against_source"
+    }
+  ],
+  "edges": [
+    {
+      "type": "GOVERNED_BY",
+      "from": {
+        "label": "Batch",
+        "id": "BAT-MX26-014"
+      },
+      "to": {
+        "label": "SOP",
+        "id": "SOP-PRD-102"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-BR-001",
+          "locator": "anchor:governing procedure"
+        }
+      ]
+    },
+    {
+      "type": "ADDRESSES",
+      "from": {
+        "label": "CAPA",
+        "id": "CAP-2026-011"
+      },
+      "to": {
+        "label": "Deviation",
+        "id": "DEV-2026-031"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-CAPA-001",
+          "locator": "anchor:addresses"
+        }
+      ]
+    },
+    {
+      "type": "ADDRESSES",
+      "from": {
+        "label": "CAPA",
+        "id": "CAP-2026-019"
+      },
+      "to": {
+        "label": "Deviation",
+        "id": "DEV-2026-047"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-CAPA-002",
+          "locator": "anchor:addresses"
+        }
+      ]
+    },
+    {
+      "type": "REVISES_SOP",
+      "from": {
+        "label": "CAPA",
+        "id": "CAP-2026-019"
+      },
+      "to": {
+        "label": "SOP",
+        "id": "SOP-QC-033"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-CAPA-002",
+          "locator": "anchor:revise"
+        }
+      ]
+    },
+    {
+      "type": "GOVERNED_BY",
+      "from": {
+        "label": "Batch",
+        "id": "BAT-MX26-014"
+      },
+      "to": {
+        "label": "SOP",
+        "id": "SOP-MNT-014"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-001",
+          "locator": "anchor:governed by"
+        }
+      ]
+    },
+    {
+      "type": "COVERED_BY",
+      "from": {
+        "label": "Equipment",
+        "id": "EQP-TP-03"
+      },
+      "to": {
+        "label": "SOP",
+        "id": "SOP-MNT-014"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-001",
+          "locator": "anchor:is governed by"
+        }
+      ]
+    },
+    {
+      "type": "IMPLEMENTS",
+      "from": {
+        "label": "SOP",
+        "id": "SOP-MNT-014"
+      },
+      "to": {
+        "label": "RegulationClause",
+        "id": "REG-21CFR-211.68"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-001",
+          "locator": "anchor:implements"
+        }
+      ]
+    },
+    {
+      "type": "IMPLEMENTS",
+      "from": {
+        "label": "SOP",
+        "id": "SOP-QA-021"
+      },
+      "to": {
+        "label": "RegulationClause",
+        "id": "REG-21CFR-211.100"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-001",
+          "locator": "anchor:implements"
+        }
+      ]
+    },
+    {
+      "type": "OBSERVED_IN",
+      "from": {
+        "label": "Deviation",
+        "id": "DEV-2026-031"
+      },
+      "to": {
+        "label": "Batch",
+        "id": "BAT-MX26-014"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-001",
+          "locator": "anchor:batch affected"
+        }
+      ]
+    },
+    {
+      "type": "INVOLVES_EQUIPMENT",
+      "from": {
+        "label": "Deviation",
+        "id": "DEV-2026-031"
+      },
+      "to": {
+        "label": "Equipment",
+        "id": "EQP-TP-03"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-001",
+          "locator": "anchor:sensor on"
+        }
+      ]
+    },
+    {
+      "type": "REVISES_SOP",
+      "from": {
+        "label": "CAPA",
+        "id": "CAP-2026-011"
+      },
+      "to": {
+        "label": "SOP",
+        "id": "SOP-MNT-014"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-001",
+          "locator": "anchor:sop-"
+        }
+      ]
+    },
+    {
+      "type": "REVISES_SOP",
+      "from": {
+        "label": "CAPA",
+        "id": "CAP-2026-011"
+      },
+      "to": {
+        "label": "SOP",
+        "id": "SOP-QA-021"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-001",
+          "locator": "anchor:sop-"
+        }
+      ]
+    },
+    {
+      "type": "IMPLEMENTS",
+      "from": {
+        "label": "SOP",
+        "id": "SOP-QC-033"
+      },
+      "to": {
+        "label": "RegulationClause",
+        "id": "REG-EUANNEX11-9"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-002",
+          "locator": "anchor:implements"
+        }
+      ]
+    }
+  ]
+}

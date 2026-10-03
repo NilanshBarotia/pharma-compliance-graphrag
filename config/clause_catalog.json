@@ -1,0 +1,242 @@
+{
+  "_note": "Titles verified against the published documents (21 CFR 211 sections fetched via eCFR API; Annex 11 PDF) — see data/raw/SRC-CFR-211/sections.jsonl and data/raw/SRC-EUGMP-A11/text.txt.",
+  "frameworks": {
+    "21_CFR_211": {
+      "doc_id": "SRC-CFR-211",
+      "jurisdiction": "US",
+      "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-C/part-211",
+      "sections": {
+        "211.1": {
+          "title": "Scope",
+          "verified": true
+        },
+        "211.3": {
+          "title": "Definitions",
+          "verified": true
+        },
+        "211.22": {
+          "title": "Responsibilities of quality control unit",
+          "verified": true
+        },
+        "211.25": {
+          "title": "Personnel qualifications",
+          "verified": true
+        },
+        "211.28": {
+          "title": "Personnel responsibilities",
+          "verified": true
+        },
+        "211.34": {
+          "title": "Consultants",
+          "verified": true
+        },
+        "211.42": {
+          "title": "Design and construction features",
+          "verified": true
+        },
+        "211.44": {
+          "title": "Lighting",
+          "verified": true
+        },
+        "211.46": {
+          "title": "Ventilation, air filtration, air heating and cooling",
+          "verified": true
+        },
+        "211.48": {
+          "title": "Plumbing",
+          "verified": true
+        },
+        "211.50": {
+          "title": "Sewage and refuse",
+          "verified": true
+        },
+        "211.52": {
+          "title": "Washing and toilet facilities",
+          "verified": true
+        },
+        "211.56": {
+          "title": "Sanitation",
+          "verified": true
+        },
+        "211.58": {
+          "title": "Maintenance",
+          "verified": true
+        },
+        "211.63": {
+          "title": "Equipment design, size, and location",
+          "verified": true
+        },
+        "211.65": {
+          "title": "Equipment construction",
+          "verified": true
+        },
+        "211.67": {
+          "title": "Equipment cleaning and maintenance",
+          "verified": true
+        },
+        "211.68": {
+          "title": "Automatic, mechanical, and electronic equipment",
+          "verified": true
+        },
+        "211.72": {
+          "title": "Filters",
+          "verified": true
+        },
+        "211.80": {
+          "title": "General requirements",
+          "verified": true
+        },
+        "211.82": {
+          "title": "Receipt and storage of untested components, drug product containers, and closures",
+          "verified": true
+        },
+        "211.84": {
+          "title": "Testing and approval or rejection of components, drug product containers, and closures",
+          "verified": true
+        },
+        "211.86": {
+          "title": "Use of approved components, drug product containers, and closures",
+          "verified": true
+        },
+        "211.87": {
+          "title": "Retesting of approved components, drug product containers, and closures",
+          "verified": true
+        },
+        "211.89": {
+          "title": "Rejected components, drug product containers, and closures",
+          "verified": true
+        },
+        "211.94": {
+          "title": "Drug product containers and closures",
+          "verified": true
+        },
+        "211.100": {
+          "title": "Written procedures; deviations",
+          "verified": true
+        },
+        "211.101": {
+          "title": "Charge-in of components",
+          "verified": true
+        },
+        "211.103": {
+          "title": "Calculation of yield",
+          "verified": true
+        },
+        "211.160": {
+          "title": "General requirements",
+          "verified": true
+        },
+        "211.165": {
+          "title": "Testing and release for distribution",
+          "verified": true
+        },
+        "211.166": {
+          "title": "Stability testing",
+          "verified": true
+        },
+        "211.180": {
+          "title": "General requirements",
+          "verified": true
+        },
+        "211.192": {
+          "title": "Production record review",
+          "verified": true
+        }
+      }
+    },
+    "EU_GMP_ANNEX_11": {
+      "doc_id": "SRC-EUGMP-A11",
+      "jurisdiction": "EU",
+      "url": "https://health.ec.europa.eu/system/files/2016-11/annex11_01-2011_en_0.pdf",
+      "sections": {
+        "1": {
+          "title": "Risk Management",
+          "verified": true
+        },
+        "2": {
+          "title": "Personnel",
+          "verified": true
+        },
+        "3": {
+          "title": "Suppliers and Service Providers",
+          "verified": true
+        },
+        "4": {
+          "title": "Validation",
+          "verified": true
+        },
+        "5": {
+          "title": "Data",
+          "verified": true
+        },
+        "6": {
+          "title": "Accuracy Checks",
+          "verified": true
+        },
+        "7": {
+          "title": "Data Storage",
+          "verified": true
+        },
+        "8": {
+          "title": "Printouts",
+          "verified": true
+        },
+        "9": {
+          "title": "Audit Trails",
+          "verified": true
+        },
+        "10": {
+          "title": "Change and Configuration Management",
+          "verified": true
+        },
+        "11": {
+          "title": "Periodic evaluation",
+          "verified": true
+        },
+        "12": {
+          "title": "Security",
+          "verified": true
+        },
+        "13": {
+          "title": "Incident Management",
+          "verified": true
+        },
+        "14": {
+          "title": "Electronic Signature",
+          "verified": true
+        },
+        "15": {
+          "title": "Batch release",
+          "verified": true
+        },
+        "16": {
+          "title": "Business Continuity",
+          "verified": true
+        },
+        "17": {
+          "title": "Archiving",
+          "verified": true
+        }
+      }
+    },
+    "EU_GMP_ANNEX_15": {
+      "doc_id": "SRC-EUGMP-A15",
+      "jurisdiction": "EU",
+      "url": "https://health.ec.europa.eu/document/download/7c6c5b3c-4902-46ea-b7ab-7608682fb68d_en",
+      "sections": {
+        "1": { "title": "Organising and Planning for Qualification and Validation", "verified": true },
+        "2": { "title": "Documentation, including VMP", "verified": true },
+        "3": { "title": "Qualification Stages for Equipment, Facilities, Utilities and Systems", "verified": true },
+        "4": { "title": "Re-Qualification", "verified": true },
+        "5": { "title": "Process Validation", "verified": true },
+        "6": { "title": "Verification of Transportation", "verified": true },
+        "7": { "title": "Validation of Packaging", "verified": true },
+        "8": { "title": "Qualification of Utilities", "verified": true },
+        "9": { "title": "Validation of Test Methods", "verified": true },
+        "10": { "title": "Cleaning Validation", "verified": true },
+        "11": { "title": "Change Control", "verified": true },
+        "12": { "title": "Glossary", "verified": true }
+      }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+# Downloaded source texts are re-creatable with scripts/fetch_sources.py; keep the repo light.
+data/raw/*
+!data/raw/.gitkeep
+data/sources/fetch_log.json
+__pycache__/
+pharma_env/

@@ -1,0 +1,992 @@
+{
+  "nodes": [
+    {
+      "label": "Site",
+      "id": "SIT-0001",
+      "name": "Riverbend Solid Dose Facility",
+      "sources": [
+        {
+          "doc_id": "SYN-BR-001"
+        }
+      ],
+      "aliases": [
+        "Riverbend Plant"
+      ],
+      "synthetic": true,
+      "site_type": "manufacturing",
+      "city": "Riverbend",
+      "country": "Fictionland"
+    },
+    {
+      "label": "Site",
+      "id": "SIT-0002",
+      "name": "Riverbend QC Laboratory",
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-002"
+        }
+      ],
+      "aliases": [
+        "Riverbend QC Lab"
+      ],
+      "synthetic": true,
+      "site_type": "testing_lab",
+      "city": "Riverbend",
+      "country": "Fictionland"
+    },
+    {
+      "label": "Product",
+      "id": "PRD-0001",
+      "name": "Meridax 20 mg Film-Coated Tablets",
+      "sources": [
+        {
+          "doc_id": "SYN-BR-001"
+        }
+      ],
+      "aliases": [
+        "Meridax 20 mg Tablets",
+        "Meridax 20 mg tablets",
+        "MRX-20"
+      ],
+      "synthetic": true,
+      "dosage_form": "tablet",
+      "strength": "20 mg"
+    },
+    {
+      "label": "Batch",
+      "id": "BAT-0001",
+      "name": "Lot MX26-014",
+      "sources": [
+        {
+          "doc_id": "SYN-BR-001"
+        }
+      ],
+      "aliases": [
+        "MX26-014",
+        "Batch 26-014"
+      ],
+      "synthetic": true,
+      "batch_number": "MX26-014",
+      "manufacture_date": "2026-05-18",
+      "expiry_date": "2028-05-31",
+      "status": "on_hold",
+      "batch_size": {
+        "value": 250000,
+        "unit": "tablets"
+      }
+    },
+    {
+      "label": "Equipment",
+      "id": "EQP-0001",
+      "name": "Tablet Press TP-03",
+      "sources": [
+        {
+          "doc_id": "SYN-BR-001"
+        }
+      ],
+      "aliases": [
+        "TP-03",
+        "Press #3",
+        "Tablet Press 3",
+        "Compression Line 3 press"
+      ],
+      "synthetic": true,
+      "equipment_tag": "TP-03",
+      "equipment_type": "tablet press",
+      "status": "calibration_overdue",
+      "last_calibration_date": "2025-11-04",
+      "next_calibration_due": "2026-05-04"
+    },
+    {
+      "label": "Equipment",
+      "id": "EQP-0002",
+      "name": "HPLC-02",
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-002"
+        }
+      ],
+      "aliases": [
+        "LC-02",
+        "Liquid Chromatograph 2"
+      ],
+      "synthetic": true,
+      "equipment_tag": "HPLC-02",
+      "equipment_type": "HPLC with chromatography data system",
+      "status": "qualified"
+    },
+    {
+      "label": "SOP",
+      "id": "SOP-0001",
+      "name": "Calibration of Production Equipment",
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-001"
+        }
+      ],
+      "aliases": [
+        "SOP-MNT-014"
+      ],
+      "synthetic": true,
+      "sop_number": "SOP-MNT-014",
+      "title": "Calibration of Production Equipment",
+      "department": "Maintenance"
+    },
+    {
+      "label": "SOP",
+      "id": "SOP-0002",
+      "name": "Deviation Management",
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-001"
+        }
+      ],
+      "aliases": [
+        "SOP-QA-021"
+      ],
+      "synthetic": true,
+      "sop_number": "SOP-QA-021",
+      "title": "Deviation Management",
+      "department": "Quality Assurance"
+    },
+    {
+      "label": "SOP",
+      "id": "SOP-0003",
+      "name": "Review of Chromatography Data and Audit Trails",
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-002"
+        }
+      ],
+      "aliases": [
+        "SOP-QC-033"
+      ],
+      "synthetic": true,
+      "sop_number": "SOP-QC-033",
+      "title": "Review of Chromatography Data and Audit Trails",
+      "department": "Quality Control"
+    },
+    {
+      "label": "SOP",
+      "id": "SOP-0004",
+      "name": "Tablet Compression and In-Process Checks",
+      "sources": [
+        {
+          "doc_id": "SYN-BR-001"
+        }
+      ],
+      "aliases": [
+        "SOP-PRD-102"
+      ],
+      "synthetic": true,
+      "sop_number": "SOP-PRD-102",
+      "title": "Tablet Compression and In-Process Checks",
+      "version": "6.0",
+      "department": "Production"
+    },
+    {
+      "label": "Deviation",
+      "id": "DEV-0001",
+      "name": "Compression force sensor on TP-03 used beyond calibration due date",
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-001"
+        }
+      ],
+      "aliases": [
+        "DEV-2026-031"
+      ],
+      "synthetic": true,
+      "deviation_number": "DEV-2026-031",
+      "title": "Compression force sensor on TP-03 used beyond calibration due date",
+      "category": "equipment",
+      "severity": "major",
+      "status": "closed",
+      "date_opened": "2026-05-19",
+      "root_cause": "Asset naming mismatch between batch record and maintenance scheduling systems"
+    },
+    {
+      "label": "Deviation",
+      "id": "DEV-0002",
+      "name": "Audit trail review not completed before approval of assay results",
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-002"
+        }
+      ],
+      "aliases": [
+        "DEV-2026-047"
+      ],
+      "synthetic": true,
+      "deviation_number": "DEV-2026-047",
+      "title": "Audit trail review not completed before approval of assay results",
+      "category": "computerised_system",
+      "severity": "major",
+      "status": "under_investigation",
+      "date_opened": "2026-06-09",
+      "root_cause": "Audit trail review is a separate checklist item not enforced by the approval workflow (probable)"
+    },
+    {
+      "label": "CAPA",
+      "id": "CAP-0001",
+      "name": "Harmonise equipment identifiers between batch-record and maintenance systems",
+      "sources": [
+        {
+          "doc_id": "SYN-CAPA-001"
+        }
+      ],
+      "aliases": [
+        "CAPA-2026-011"
+      ],
+      "synthetic": true,
+      "capa_number": "CAPA-2026-011",
+      "title": "Harmonise equipment identifiers between batch-record and maintenance systems",
+      "capa_type": "corrective_and_preventive",
+      "status": "in_progress",
+      "date_opened": "2026-05-26",
+      "due_date": "2026-08-31",
+      "effectiveness_check": "pending"
+    },
+    {
+      "label": "CAPA",
+      "id": "CAP-0002",
+      "name": "Enforce audit trail review as a mandatory step in QC result approval",
+      "sources": [
+        {
+          "doc_id": "SYN-CAPA-002"
+        }
+      ],
+      "aliases": [
+        "CAPA-2026-019"
+      ],
+      "synthetic": true,
+      "capa_number": "CAPA-2026-019",
+      "title": "Enforce audit trail review as a mandatory step in QC result approval",
+      "capa_type": "corrective",
+      "status": "open",
+      "date_opened": "2026-06-15",
+      "due_date": "2026-09-30",
+      "effectiveness_check": "pending"
+    },
+    {
+      "label": "Inspector",
+      "id": "INS-0001",
+      "name": "Dana Whitfield",
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-002"
+        }
+      ],
+      "aliases": [
+        "Dana Whitfield (fictional)"
+      ],
+      "synthetic": true,
+      "inspector_type": "internal_auditor",
+      "organization": "Northfield Pharma Ltd. (fictional) - internal audit"
+    },
+    {
+      "label": "RegulationClause",
+      "id": "REG-21CFR211.22",
+      "name": "21 CFR 211.22",
+      "sources": [
+        {
+          "doc_id": "SRC-CFR-211",
+          "locator": "\u00a7 211.22"
+        }
+      ],
+      "framework": "21_CFR_211",
+      "citation": "21 CFR 211.22",
+      "title": "Responsibilities of quality control unit",
+      "jurisdiction": "US",
+      "verification_status": "verified_against_source"
+    },
+    {
+      "label": "RegulationClause",
+      "id": "REG-21CFR211.68",
+      "name": "21 CFR 211.68",
+      "sources": [
+        {
+          "doc_id": "SRC-CFR-211",
+          "locator": "\u00a7 211.68"
+        }
+      ],
+      "framework": "21_CFR_211",
+      "citation": "21 CFR 211.68",
+      "title": "Automatic, mechanical, and electronic equipment",
+      "jurisdiction": "US",
+      "verification_status": "verified_against_source"
+    },
+    {
+      "label": "RegulationClause",
+      "id": "REG-21CFR211.68(a)",
+      "name": "21 CFR 211.68(a)",
+      "sources": [
+        {
+          "doc_id": "SRC-CFR-211",
+          "locator": "\u00a7 211.68(a)"
+        }
+      ],
+      "framework": "21_CFR_211",
+      "citation": "21 CFR 211.68(a)",
+      "title": "Routine calibration of equipment (paragraph title to be confirmed on fetch)",
+      "jurisdiction": "US",
+      "verification_status": "verified_against_source"
+    },
+    {
+      "label": "RegulationClause",
+      "id": "REG-21CFR211.100",
+      "name": "21 CFR 211.100",
+      "sources": [
+        {
+          "doc_id": "SRC-CFR-211",
+          "locator": "\u00a7 211.100"
+        }
+      ],
+      "framework": "21_CFR_211",
+      "citation": "21 CFR 211.100",
+      "title": "Written procedures; deviations",
+      "jurisdiction": "US",
+      "verification_status": "verified_against_source"
+    },
+    {
+      "label": "RegulationClause",
+      "id": "REG-21CFR211.100(b)",
+      "name": "21 CFR 211.100(b)",
+      "sources": [
+        {
+          "doc_id": "SRC-CFR-211",
+          "locator": "\u00a7 211.100(b)"
+        }
+      ],
+      "framework": "21_CFR_211",
+      "citation": "21 CFR 211.100(b)",
+      "title": "Following written procedures; recording deviations (paragraph title to be confirmed on fetch)",
+      "jurisdiction": "US",
+      "verification_status": "verified_against_source"
+    },
+    {
+      "label": "RegulationClause",
+      "id": "REG-21CFR211.160",
+      "name": "21 CFR 211.160",
+      "sources": [
+        {
+          "doc_id": "SRC-CFR-211",
+          "locator": "\u00a7 211.160"
+        }
+      ],
+      "framework": "21_CFR_211",
+      "citation": "21 CFR 211.160",
+      "title": "General requirements (laboratory controls)",
+      "jurisdiction": "US",
+      "verification_status": "verified_against_source"
+    },
+    {
+      "label": "RegulationClause",
+      "id": "REG-EUGMP-A11-9",
+      "name": "EU GMP Annex 11, clause 9",
+      "sources": [
+        {
+          "doc_id": "SRC-EUGMP-A11",
+          "locator": "9. Audit Trails"
+        }
+      ],
+      "framework": "EU_GMP_ANNEX_11",
+      "citation": "EU GMP Annex 11, clause 9",
+      "title": "Audit Trails",
+      "jurisdiction": "EU",
+      "verification_status": "verified_against_source"
+    },
+    {
+      "label": "RegulationClause",
+      "id": "REG-EUGMP-A11-11",
+      "name": "EU GMP Annex 11, clause 11",
+      "sources": [
+        {
+          "doc_id": "SRC-EUGMP-A11",
+          "locator": "11. Periodic evaluation"
+        }
+      ],
+      "framework": "EU_GMP_ANNEX_11",
+      "citation": "EU GMP Annex 11, clause 11",
+      "title": "Periodic evaluation",
+      "jurisdiction": "EU",
+      "verification_status": "verified_against_source"
+    }
+  ],
+  "edges": [
+    {
+      "type": "OF_PRODUCT",
+      "from": {
+        "label": "Batch",
+        "id": "BAT-0001"
+      },
+      "to": {
+        "label": "Product",
+        "id": "PRD-0001"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-BR-001"
+        }
+      ]
+    },
+    {
+      "type": "MANUFACTURED_AT",
+      "from": {
+        "label": "Batch",
+        "id": "BAT-0001"
+      },
+      "to": {
+        "label": "Site",
+        "id": "SIT-0001"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-BR-001"
+        }
+      ]
+    },
+    {
+      "type": "PROCESSED_ON",
+      "from": {
+        "label": "Batch",
+        "id": "BAT-0001"
+      },
+      "to": {
+        "label": "Equipment",
+        "id": "EQP-0001"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-BR-001"
+        }
+      ],
+      "properties": {
+        "step": "compression"
+      }
+    },
+    {
+      "type": "GOVERNED_BY",
+      "from": {
+        "label": "Batch",
+        "id": "BAT-0001"
+      },
+      "to": {
+        "label": "SOP",
+        "id": "SOP-0004"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-BR-001"
+        }
+      ]
+    },
+    {
+      "type": "LOCATED_AT",
+      "from": {
+        "label": "Equipment",
+        "id": "EQP-0001"
+      },
+      "to": {
+        "label": "Site",
+        "id": "SIT-0001"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-BR-001"
+        }
+      ]
+    },
+    {
+      "type": "LOCATED_AT",
+      "from": {
+        "label": "Equipment",
+        "id": "EQP-0002"
+      },
+      "to": {
+        "label": "Site",
+        "id": "SIT-0002"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-002"
+        }
+      ]
+    },
+    {
+      "type": "COVERED_BY",
+      "from": {
+        "label": "Equipment",
+        "id": "EQP-0001"
+      },
+      "to": {
+        "label": "SOP",
+        "id": "SOP-0001"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-001"
+        }
+      ]
+    },
+    {
+      "type": "IMPLEMENTS",
+      "from": {
+        "label": "SOP",
+        "id": "SOP-0001"
+      },
+      "to": {
+        "label": "RegulationClause",
+        "id": "REG-21CFR211.68(a)"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-001",
+          "locator": "Regulatory relevance"
+        }
+      ]
+    },
+    {
+      "type": "IMPLEMENTS",
+      "from": {
+        "label": "SOP",
+        "id": "SOP-0002"
+      },
+      "to": {
+        "label": "RegulationClause",
+        "id": "REG-21CFR211.100(b)"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-001",
+          "locator": "Regulatory relevance"
+        }
+      ]
+    },
+    {
+      "type": "IMPLEMENTS",
+      "from": {
+        "label": "SOP",
+        "id": "SOP-0003"
+      },
+      "to": {
+        "label": "RegulationClause",
+        "id": "REG-EUGMP-A11-9"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-002",
+          "locator": "Regulatory relevance"
+        }
+      ]
+    },
+    {
+      "type": "OBSERVED_IN",
+      "from": {
+        "label": "Deviation",
+        "id": "DEV-0001"
+      },
+      "to": {
+        "label": "Batch",
+        "id": "BAT-0001"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-001"
+        }
+      ]
+    },
+    {
+      "type": "OBSERVED_IN",
+      "from": {
+        "label": "Deviation",
+        "id": "DEV-0002"
+      },
+      "to": {
+        "label": "Batch",
+        "id": "BAT-0001"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-002"
+        }
+      ]
+    },
+    {
+      "type": "INVOLVES_EQUIPMENT",
+      "from": {
+        "label": "Deviation",
+        "id": "DEV-0001"
+      },
+      "to": {
+        "label": "Equipment",
+        "id": "EQP-0001"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-001"
+        }
+      ]
+    },
+    {
+      "type": "INVOLVES_EQUIPMENT",
+      "from": {
+        "label": "Deviation",
+        "id": "DEV-0002"
+      },
+      "to": {
+        "label": "Equipment",
+        "id": "EQP-0002"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-002"
+        }
+      ]
+    },
+    {
+      "type": "VIOLATES_SOP",
+      "from": {
+        "label": "Deviation",
+        "id": "DEV-0001"
+      },
+      "to": {
+        "label": "SOP",
+        "id": "SOP-0001"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-001",
+          "locator": "Investigation"
+        }
+      ]
+    },
+    {
+      "type": "VIOLATES_SOP",
+      "from": {
+        "label": "Deviation",
+        "id": "DEV-0002"
+      },
+      "to": {
+        "label": "SOP",
+        "id": "SOP-0003"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-002",
+          "locator": "Description"
+        }
+      ]
+    },
+    {
+      "type": "OCCURRED_AT",
+      "from": {
+        "label": "Deviation",
+        "id": "DEV-0001"
+      },
+      "to": {
+        "label": "Site",
+        "id": "SIT-0001"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-001"
+        }
+      ]
+    },
+    {
+      "type": "OCCURRED_AT",
+      "from": {
+        "label": "Deviation",
+        "id": "DEV-0002"
+      },
+      "to": {
+        "label": "Site",
+        "id": "SIT-0002"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-002"
+        }
+      ]
+    },
+    {
+      "type": "RELATES_TO_CLAUSE",
+      "from": {
+        "label": "Deviation",
+        "id": "DEV-0001"
+      },
+      "to": {
+        "label": "RegulationClause",
+        "id": "REG-21CFR211.68(a)"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-001",
+          "locator": "Regulatory relevance"
+        }
+      ]
+    },
+    {
+      "type": "RELATES_TO_CLAUSE",
+      "from": {
+        "label": "Deviation",
+        "id": "DEV-0001"
+      },
+      "to": {
+        "label": "RegulationClause",
+        "id": "REG-21CFR211.100(b)"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-001",
+          "locator": "Regulatory relevance"
+        }
+      ]
+    },
+    {
+      "type": "RELATES_TO_CLAUSE",
+      "from": {
+        "label": "Deviation",
+        "id": "DEV-0002"
+      },
+      "to": {
+        "label": "RegulationClause",
+        "id": "REG-EUGMP-A11-9"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-002",
+          "locator": "Regulatory relevance"
+        }
+      ]
+    },
+    {
+      "type": "RELATES_TO_CLAUSE",
+      "from": {
+        "label": "Deviation",
+        "id": "DEV-0002"
+      },
+      "to": {
+        "label": "RegulationClause",
+        "id": "REG-21CFR211.160"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-002",
+          "locator": "Regulatory relevance"
+        }
+      ]
+    },
+    {
+      "type": "RAISED",
+      "from": {
+        "label": "Inspector",
+        "id": "INS-0001"
+      },
+      "to": {
+        "label": "Deviation",
+        "id": "DEV-0002"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-002"
+        }
+      ],
+      "properties": {
+        "date": "2026-06-09"
+      }
+    },
+    {
+      "type": "INSPECTED",
+      "from": {
+        "label": "Inspector",
+        "id": "INS-0001"
+      },
+      "to": {
+        "label": "Site",
+        "id": "SIT-0002"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-002"
+        }
+      ],
+      "properties": {
+        "start_date": "2026-06-08",
+        "end_date": "2026-06-09"
+      }
+    },
+    {
+      "type": "CITED",
+      "from": {
+        "label": "Inspector",
+        "id": "INS-0001"
+      },
+      "to": {
+        "label": "RegulationClause",
+        "id": "REG-EUGMP-A11-9"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-DEV-002"
+        }
+      ],
+      "properties": {
+        "site_id": "SIT-0002",
+        "document_id": "SYN-DEV-002"
+      }
+    },
+    {
+      "type": "ADDRESSES",
+      "from": {
+        "label": "CAPA",
+        "id": "CAP-0001"
+      },
+      "to": {
+        "label": "Deviation",
+        "id": "DEV-0001"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-CAPA-001"
+        }
+      ]
+    },
+    {
+      "type": "ADDRESSES",
+      "from": {
+        "label": "CAPA",
+        "id": "CAP-0002"
+      },
+      "to": {
+        "label": "Deviation",
+        "id": "DEV-0002"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-CAPA-002"
+        }
+      ]
+    },
+    {
+      "type": "REVISES_SOP",
+      "from": {
+        "label": "CAPA",
+        "id": "CAP-0001"
+      },
+      "to": {
+        "label": "SOP",
+        "id": "SOP-0001"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-CAPA-001",
+          "locator": "Actions 2"
+        }
+      ]
+    },
+    {
+      "type": "REVISES_SOP",
+      "from": {
+        "label": "CAPA",
+        "id": "CAP-0002"
+      },
+      "to": {
+        "label": "SOP",
+        "id": "SOP-0003"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-CAPA-002",
+          "locator": "Actions 1"
+        }
+      ]
+    },
+    {
+      "type": "REFERENCES_CLAUSE",
+      "from": {
+        "label": "CAPA",
+        "id": "CAP-0001"
+      },
+      "to": {
+        "label": "RegulationClause",
+        "id": "REG-21CFR211.68(a)"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-CAPA-001",
+          "locator": "Regulatory reference"
+        }
+      ]
+    },
+    {
+      "type": "REFERENCES_CLAUSE",
+      "from": {
+        "label": "CAPA",
+        "id": "CAP-0002"
+      },
+      "to": {
+        "label": "RegulationClause",
+        "id": "REG-EUGMP-A11-9"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-CAPA-002",
+          "locator": "Regulatory reference"
+        }
+      ]
+    },
+    {
+      "type": "REFERENCES_CLAUSE",
+      "from": {
+        "label": "CAPA",
+        "id": "CAP-0002"
+      },
+      "to": {
+        "label": "RegulationClause",
+        "id": "REG-EUGMP-A11-11"
+      },
+      "sources": [
+        {
+          "doc_id": "SYN-CAPA-002",
+          "locator": "Regulatory reference"
+        }
+      ]
+    },
+    {
+      "type": "CHILD_OF",
+      "from": {
+        "label": "RegulationClause",
+        "id": "REG-21CFR211.68(a)"
+      },
+      "to": {
+        "label": "RegulationClause",
+        "id": "REG-21CFR211.68"
+      },
+      "sources": [
+        {
+          "doc_id": "SRC-CFR-211",
+          "locator": "\u00a7 211.68(a)"
+        }
+      ]
+    },
+    {
+      "type": "CHILD_OF",
+      "from": {
+        "label": "RegulationClause",
+        "id": "REG-21CFR211.100(b)"
+      },
+      "to": {
+        "label": "RegulationClause",
+        "id": "REG-21CFR211.100"
+      },
+      "sources": [
+        {
+          "doc_id": "SRC-CFR-211",
+          "locator": "\u00a7 211.100(b)"
+        }
+      ]
+    }
+  ]
+}
