@@ -1,0 +1,18 @@
+{
+  "_readme": "Generic chunking config. To point this at new documents: add a rule keyed by doc_type (matched from front-matter 'doc_type', falling back to 'default'). No code changes needed for new document types that fit 'section' or 'fixed' strategies.",
+
+  "rules": {
+    "deviation_report":  {"strategy": "section", "min_chars": 40},
+    "capa_record":       {"strategy": "section", "min_chars": 40},
+    "batch_record_summary": {"strategy": "section", "min_chars": 40},
+    "regulation_section": {"strategy": "whole_section"},
+    "warning_letter":    {"strategy": "fixed", "chunk_chars": 900, "overlap_chars": 150},
+    "default":           {"strategy": "fixed", "chunk_chars": 900, "overlap_chars": 150}
+  },
+
+  "embedding": {
+    "backend": "tfidf",
+    "_backend_options": "tfidf (offline, default, no API key) | anthropic (requires ANTHROPIC_API_KEY + anthropic package -- Anthropic does not offer an embeddings endpoint, so this project does not wire an 'anthropic' embedding path; left as a documented non-option) | openai (requires OPENAI_API_KEY + openai package)",
+    "tfidf": {"max_features": 4096, "ngram_range": [1, 2], "stop_words": "english"}
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "_readme": "Generic agent config. 'investigation_chains' defines, per seed node label, which multi-hop path to walk -- this is exactly the 'deviation -> equipment -> related past CAPAs -> applicable regulation clause' chain from the project brief, made declarative/config-driven instead of hardcoded. Add a new chain for a new label without touching agent.py.",
+
+  "vector_top_k": 4,
+  "max_seed_entities": 3,
+
+  "investigation_chains": {
+    "Deviation": [
+      {"rel": "INVOLVES_EQUIPMENT", "direction": "out", "label": "Equipment"},
+      {"rel": "INVOLVES_EQUIPMENT", "direction": "in", "label": "Deviation"},
+      {"rel": "RELATES_TO_CLAUSE", "direction": "out", "label": "RegulationClause"}
+    ],
+    "CAPA": [
+      {"rel": "ADDRESSES", "direction": "out", "label": "Deviation"},
+      {"rel": "RELATES_TO_CLAUSE", "direction": "out", "label": "RegulationClause"}
+    ],
+    "RegulationClause": [
+      {"rel": "RELATES_TO_CLAUSE", "direction": "in", "label": "Deviation"},
+      {"rel": "ADDRESSES", "direction": "in", "label": "CAPA"}
+    ],
+    "Equipment": [
+      {"rel": "INVOLVES_EQUIPMENT", "direction": "in", "label": "Deviation"},
+      {"rel": "ADDRESSES", "direction": "in", "label": "CAPA"}
+    ],
+    "Batch": [
+      {"rel": "GOVERNED_BY", "direction": "out", "label": "SOP"},
+      {"rel": "IMPLEMENTS", "direction": "out", "label": "RegulationClause"}
+    ]
+  },
+
+  "answer_template": {
+    "_readme": "Deterministic (non-LLM) synthesis is the default -- every line in the answer is directly traceable to a doc_id/locator or a graph node id, which is what 'citation grounding' in the brief requires. An LLM phrasing pass is optional (see agent.py --llm) and is PURELY COSMETIC rewording on top of this already-grounded content -- it is not allowed to introduce new facts, per its own system prompt in agent.py."
+  }
+}
