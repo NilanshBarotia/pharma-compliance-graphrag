@@ -17,7 +17,7 @@ Both expose:
   get_node(node_id)                             -> node dict or None
   neighbors(node_id, rel_type=None, direction='out'|'in'|'any') -> list of (edge_type, direction, node_dict)
   multi_hop(start_id, hop_specs)                 -> list of paths; each path is
-                                                     a list of (node_dict, edge_type_or_None)
+                                                     a list of (node_dict, edge_type_or_None, direction_or_None)
 """
 import json
 from pathlib import Path
@@ -74,21 +74,23 @@ class LocalJsonGraph:
     def multi_hop(self, start_id, hop_specs):
         """hop_specs: list of {"rel": "TYPE", "direction": "out"|"in"|"any"}.
         Returns every path that successfully follows all hops, as a list of
-        (node_dict, edge_type_taken_to_reach_it) tuples, starting with the
-        start node (edge_type=None)."""
+        (node_dict, edge_type_taken_to_reach_it, direction) tuples, starting
+        with the start node (edge_type=None, direction=None). direction is
+        'out' if the edge points from the previous node to this one, 'in' if
+        it points the other way -- needed to print arrows truthfully."""
         start = self.get_node(start_id)
         if not start:
             return []
-        paths = [[(start, None)]]
+        paths = [[(start, None, None)]]
         for spec in hop_specs:
             next_paths = []
             for path in paths:
-                visited = {n["id"] for n, _ in path}
+                visited = {step[0]["id"] for step in path}
                 last_node = path[-1][0]
-                for rel_type, _, nb in self.neighbors(last_node["id"], spec.get("rel"), spec.get("direction", "any")):
+                for rel_type, hop_dir, nb in self.neighbors(last_node["id"], spec.get("rel"), spec.get("direction", "any")):
                     if nb["id"] in visited:
                         continue  # avoid A -> B -> A revisits (cycle noise)
-                    next_paths.append(path + [(nb, rel_type)])
+                    next_paths.append(path + [(nb, rel_type, hop_dir)])
             paths = next_paths
             if not paths:
                 break
@@ -115,46 +117,62 @@ class Neo4jGraph:
         with self.driver.session(database=self.database) as s:
             return [r.data() for r in s.run(cypher, **params)]
 
+    @staticmethod
+    def _normalize(props, labels):
+        """Make a Neo4j node look like a LocalJsonGraph node. load_neo4j.py stores the
+        ontology type as a real Neo4j label (not a property) and provenance as
+        `sources_json`; the agent and UI expect `label` and `sources` keys."""
+        d = dict(props)
+        d["label"] = labels[0] if labels else d.get("label")
+        if "sources_json" in d:
+            try:
+                d["sources"] = json.loads(d.pop("sources_json"))
+            except (TypeError, ValueError):
+                d["sources"] = []
+        d.setdefault("aliases", [])
+        return d
+
     def find_nodes(self, name_contains=None, label=None, doc_id=None):
         label_clause = f":`{label}`" if label else ""
-        where = []
-        params = {}
+        where, params = [], {}
         if name_contains:
-            where.append("toLower(n.name) CONTAINS toLower($name_contains)")
+            # match name OR any alias, like LocalJsonGraph does (e.g. 'DEV-2026-047' is an alias)
+            where.append("(toLower(n.name) CONTAINS toLower($name_contains) OR "
+                         "any(a IN coalesce(n.aliases, []) WHERE toLower(a) CONTAINS toLower($name_contains)))")
             params["name_contains"] = name_contains
         clause = ("WHERE " + " AND ".join(where)) if where else ""
-        rows = self._run(f"MATCH (n{label_clause}) {clause} RETURN n", **params)
-        return [r["n"] for r in rows]
+        rows = self._run(f"MATCH (n{label_clause}) {clause} RETURN n, labels(n) AS lbls", **params)
+        return [self._normalize(r["n"], r["lbls"]) for r in rows]
 
     def get_node(self, node_id):
-        rows = self._run("MATCH (n {id: $id}) RETURN n", id=node_id)
-        return rows[0]["n"] if rows else None
+        rows = self._run("MATCH (n {id: $id}) RETURN n, labels(n) AS lbls", id=node_id)
+        return self._normalize(rows[0]["n"], rows[0]["lbls"]) if rows else None
 
     def neighbors(self, node_id, rel_type=None, direction="any"):
         rel = f":`{rel_type}`" if rel_type else ""
         results = []
         if direction in ("out", "any"):
-            for r in self._run(f"MATCH (a {{id:$id}})-[e{rel}]->(b) RETURN type(e) AS t, b", id=node_id):
-                results.append((r["t"], "out", r["b"]))
+            for r in self._run(f"MATCH (a {{id:$id}})-[e{rel}]->(b) RETURN type(e) AS t, b, labels(b) AS lbls", id=node_id):
+                results.append((r["t"], "out", self._normalize(r["b"], r["lbls"])))
         if direction in ("in", "any"):
-            for r in self._run(f"MATCH (a {{id:$id}})<-[e{rel}]-(b) RETURN type(e) AS t, b", id=node_id):
-                results.append((r["t"], "in", r["b"]))
+            for r in self._run(f"MATCH (a {{id:$id}})<-[e{rel}]-(b) RETURN type(e) AS t, b, labels(b) AS lbls", id=node_id):
+                results.append((r["t"], "in", self._normalize(r["b"], r["lbls"])))
         return results
 
     def multi_hop(self, start_id, hop_specs):
         start = self.get_node(start_id)
         if not start:
             return []
-        paths = [[(start, None)]]
+        paths = [[(start, None, None)]]
         for spec in hop_specs:
             next_paths = []
             for path in paths:
-                visited = {n["id"] for n, _ in path}
+                visited = {step[0]["id"] for step in path}
                 last_node = path[-1][0]
-                for rel_type, _, nb in self.neighbors(last_node["id"], spec.get("rel"), spec.get("direction", "any")):
+                for rel_type, hop_dir, nb in self.neighbors(last_node["id"], spec.get("rel"), spec.get("direction", "any")):
                     if nb["id"] in visited:
                         continue
-                    next_paths.append(path + [(nb, rel_type)])
+                    next_paths.append(path + [(nb, rel_type, hop_dir)])
             paths = next_paths
             if not paths:
                 break
