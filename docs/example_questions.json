@@ -1,0 +1,93 @@
+{
+  "_readme": "Demo questions with hand-derived expectations. 'expect_paths' = exact node-id sequences that must appear among the traversed paths (each hand-checked against data/synthetic/ground_truth_graph.json edges; scripts/run_examples.py re-verifies that too). 'forbid_nodes' = ids that must NOT appear in any path starting from an entity named in the question (guards against wrong-but-plausible traces). 'expect_docs' = source doc_ids that must appear in the retrieved text evidence.",
+  "questions": [
+    {
+      "id": "Q1",
+      "question": "Which CAPAs trace back to 21 CFR 211.68(a)?",
+      "hops": "RegulationClause <- Deviation <- CAPA",
+      "expected_answer": "CAPA-2026-011 (CAP-0001), via DEV-2026-031 (DEV-0001).",
+      "expect_paths": [["REG-21CFR211.68(a)", "DEV-0001", "CAP-0001"]],
+      "forbid_nodes": ["CAP-0002", "DEV-0002"],
+      "expect_docs": ["SYN-CAPA-001", "SYN-DEV-001"]
+    },
+    {
+      "id": "Q2",
+      "question": "What is going on with DEV-2026-031?",
+      "hops": "Deviation -> Equipment / <- CAPA / -> RegulationClause",
+      "expected_answer": "Calibration-overdue deviation on Tablet Press TP-03 (EQP-0001); addressed by CAPA-2026-011 (CAP-0001); relates to 21 CFR 211.68(a) and 211.100(b).",
+      "expect_paths": [
+        ["DEV-0001", "EQP-0001"], ["DEV-0001", "CAP-0001"],
+        ["DEV-0001", "REG-21CFR211.68(a)"], ["DEV-0001", "REG-21CFR211.100(b)"]],
+      "forbid_nodes": ["CAP-0002", "EQP-0002"],
+      "expect_docs": ["SYN-DEV-001"]
+    },
+    {
+      "id": "Q3",
+      "question": "What is going on with DEV-2026-047?",
+      "hops": "Deviation -> Equipment / <- CAPA / -> RegulationClause / <- Inspector -> RegulationClause",
+      "expected_answer": "Audit-trail-review deviation on HPLC-02 (EQP-0002); addressed by CAPA-2026-019 (CAP-0002); relates to EU GMP Annex 11 cl. 9 and 21 CFR 211.160; raised by inspector Dana Whitfield.",
+      "expect_paths": [
+        ["DEV-0002", "EQP-0002"], ["DEV-0002", "CAP-0002"],
+        ["DEV-0002", "REG-EUGMP-A11-9"], ["DEV-0002", "REG-21CFR211.160"],
+        ["DEV-0002", "INS-0001", "REG-EUGMP-A11-9"]],
+      "forbid_nodes": ["CAP-0001", "EQP-0001"],
+      "expect_docs": ["SYN-DEV-002"]
+    },
+    {
+      "id": "Q4",
+      "question": "Tell me about equipment TP-03",
+      "hops": "Equipment <- Deviation <- CAPA; Equipment -> Site; Equipment -> SOP",
+      "expected_answer": "Tablet Press TP-03 (EQP-0001): deviation DEV-2026-031 and its CAPA-2026-011; located at Riverbend Solid Dose Facility; covered by the calibration SOP.",
+      "expect_paths": [
+        ["EQP-0001", "DEV-0001", "CAP-0001"], ["EQP-0001", "SIT-0001"], ["EQP-0001", "SOP-0001"]],
+      "forbid_nodes": ["CAP-0002", "DEV-0002"],
+      "expect_docs": ["SYN-BR-001"]
+    },
+    {
+      "id": "Q5",
+      "question": "Which CAPAs trace back to EU GMP Annex 11, clause 9?",
+      "hops": "RegulationClause <- Deviation <- CAPA",
+      "expected_answer": "CAPA-2026-019 (CAP-0002), via DEV-2026-047 (DEV-0002).",
+      "expect_paths": [["REG-EUGMP-A11-9", "DEV-0002", "CAP-0002"]],
+      "forbid_nodes": ["CAP-0001", "DEV-0001"],
+      "expect_docs": ["SYN-DEV-002"]
+    },
+    {
+      "id": "Q6",
+      "question": "Which SOP does CAPA-2026-019 revise, and which regulation clause does that SOP implement?",
+      "hops": "CAPA -> SOP -> RegulationClause",
+      "expected_answer": "CAPA-2026-019 revises the audit-trail review SOP (SOP-0003), which implements EU GMP Annex 11 clause 9.",
+      "expect_paths": [["CAP-0002", "SOP-0003", "REG-EUGMP-A11-9"]],
+      "forbid_nodes": ["SOP-0001", "CAP-0001"],
+      "expect_docs": ["SYN-CAPA-002"]
+    },
+    {
+      "id": "Q7",
+      "question": "Which CAPAs are linked to equipment HPLC-02?",
+      "hops": "Equipment <- Deviation <- CAPA",
+      "expected_answer": "CAPA-2026-019 (CAP-0002), via DEV-2026-047 (DEV-0002).",
+      "expect_paths": [["EQP-0002", "DEV-0002", "CAP-0002"]],
+      "forbid_nodes": ["CAP-0001", "DEV-0001"],
+      "expect_docs": ["SYN-DEV-002"]
+    },
+    {
+      "id": "Q8",
+      "question": "Which inspector raised DEV-2026-047 and which clauses did they cite?",
+      "hops": "Deviation <- Inspector -> RegulationClause",
+      "expected_answer": "Inspector Dana Whitfield (INS-0001) raised it and cited EU GMP Annex 11 clause 9 and 21 CFR 211.160.",
+      "expect_paths": [
+        ["DEV-0002", "INS-0001", "REG-EUGMP-A11-9"], ["DEV-0002", "INS-0001", "REG-21CFR211.160"]],
+      "forbid_nodes": ["CAP-0001", "DEV-0001"],
+      "expect_docs": ["SYN-DEV-002"]
+    },
+    {
+      "id": "Q9",
+      "question": "Which deviations were observed in Lot MX26-014 and which CAPAs addressed them?",
+      "hops": "Batch <- Deviation <- CAPA",
+      "expected_answer": "Two deviations were observed in Lot MX26-014: DEV-2026-031 (CAPA-2026-011) and DEV-2026-047 (CAPA-2026-019).",
+      "expect_paths": [["BAT-0001", "DEV-0001", "CAP-0001"], ["BAT-0001", "DEV-0002", "CAP-0002"]],
+      "forbid_nodes": [],
+      "expect_docs": ["SYN-BR-001"]
+    }
+  ]
+}
